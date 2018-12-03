@@ -85,6 +85,37 @@
       The <dfn>bar</dfn> attribute.
     </p>
   </section>
+  <section id="RTCAudioReceiverStats-dict*">
+    <h3>
+      <dfn>RTCAudioReceiverStats</dfn> dictionary non-standardized members
+    </h3>
+    <pre class="idl">partial dictionary RTCAudioReceiverStats {
+      unsigned long long jitterBufferFlushes;
+      unsigned long long delayedPacketOutageSamples;
+};</pre>
+    <dl data-link-for="RTCAudioReceiverStats" data-dfn-for="RTCAudioReceiverStats" class=
+    "dictionary-members">
+      <dt>
+        <dfn><code>jitterBufferFlushes</code></dfn> of type
+        <span class="idlMemberType"><a href="https://heycam.github.io/webidl/#idl-unsigned-long-long">unsigned long long</a></span>
+      </dt>
+      <dd>
+        <p>
+          Counts the total number of times the jitter buffer
+          reaches its maximum capacity and gets flushed.
+        </p>
+      </dd>
+      <dt>
+        <dfn><code>delayedPacketOutageSamples</code></dfn> of type
+        <span class="idlMemberType"><a href="https://heycam.github.io/webidl/#idl-unsigned-long-long">unsigned long long</a></span>
+      </dt>
+      <dd>
+        <p>
+          Measures the number of audio samples that were concealed due to delayed packets. This gives an indication of how well the jitter buffer's network adaptation is working.
+        </p>
+      </dd>
+    </dl>
+  </section>
 </body>
 
 </html>
