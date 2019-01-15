@@ -85,6 +85,48 @@
       The <dfn>bar</dfn> attribute.
     </p>
   </section>
+  <section id="RTCVideoReceiverStats-dict*">
+    <h3>
+      <dfn>RTCVideoReceiverStats</dfn> dictionary non-standardized members
+    </h3>
+    <pre class="idl">partial dictionary RTCVideoReceiverStats {
+      unsigned long numFreezes;
+      double meanFreezeDuration;
+      double meanTimeBetweenFreezes;
+};</pre>
+    <dl data-link-for="RTCVideoReceiverStats" data-dfn-for="RTCVideoReceiverStats" class=
+    "dictionary-members">
+      <dt>
+        <dfn><code>numFreezes</code></dfn> of type
+        <span class="idlMemberType"><a href="https://heycam.github.io/webidl/#idl-unsigned-long">unsigned long</a></span>
+      </dt>
+      <dd>
+        <p>
+          Total number of video freezes experienced by this receiver. It is a freeze if time
+          interval between two consecutive rendered frame is 3 times higher than the average
+          interframe interval.
+        </p>
+      </dd>
+      <dt>
+        <dfn><code>meanFreezeDuration</code></dfn> of type
+        <span class="idlMemberType"><a href="https://heycam.github.io/webidl/#idl-double">double</a></span>
+      </dt>
+      <dd>
+        <p>
+          Mean duration of video freeze, in seconds.
+        </p>
+      </dd>
+      <dt>
+        <dfn><code>meanTimeBetweenFreezes</code></dfn> of type
+        <span class="idlMemberType"><a href="https://heycam.github.io/webidl/#idl-double">double</a></span>
+      </dt>
+      <dd>
+        <p>
+          Mean time between video freezes, in seconds.
+        </p>
+      </dd>
+    </dl>
+  </section>
 </body>
 
 </html>
