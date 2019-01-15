@@ -126,9 +126,9 @@
       </dt>
       <dd>
         <p>
-          Total number of video freezes experienced by this receiver. It is a freeze if time
-          interval between two consecutive rendered frame is 3 times higher than the average
-          interframe interval.
+          Total number of video freezes experienced by this receiver. It is a
+          freeze if frame duration, which is time interval between consecutively
+          rendered frames, is 3 times higher than the average frame duration.
         </p>
       </dd>
       <dt>
@@ -137,8 +137,9 @@
       </dt>
       <dd>
         <p>
-          Total number of video pauses experienced by this receiver. Video is considered to
-          be paused if time passed since last received packet exceeds 5 seconds.
+          Total number of video pauses experienced by this receiver. Video is
+          considered to be paused if time passed since last received packet
+          exceeds 5 seconds.
         </p>
       </dd>
       <dt>
@@ -165,7 +166,8 @@
       </dt>
       <dd>
         <p>
-          Sum of squared duration of rendered frames. This can be used to calculate harmonic frame rate:
+          Sum of squared duration of rendered frames. This can be used to
+          calculate harmonic frame rate:
           <p>
             totalFramesDuration / sumOfSquaredFrameDurations
           </p>
