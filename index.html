@@ -125,6 +125,18 @@
           Mean time between video freezes, in seconds.
         </p>
       </dd>
+      <dt>
+        <dfn><code>harmonicFrameRate</code></dfn> of type
+        <span class="idlMemberType"><a href="https://heycam.github.io/webidl/#idl-unsigned long">unsigned long</a></span>
+      </dt>
+      <dd>
+        <p>
+          Harmonic frame rate, in frames per second. It is calculated as:
+          <p>
+            total_video_duration_secs / sum(frame_duration_secs ^ 2).
+          </p>
+        </p>
+      </dd>
     </dl>
   </section>
 </body>
