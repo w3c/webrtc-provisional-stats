@@ -91,8 +91,10 @@
     </h3>
     <pre class="idl">partial dictionary RTCVideoReceiverStats {
       unsigned long numFreezes;
-      double meanFreezeDuration;
-      double meanTimeBetweenFreezes;
+      unsigned long numPauses;
+      double totalFreezesDuration;
+      double totalFramesDuration;
+      double sumOfSquaredFramesDuration;
 };</pre>
     <dl data-link-for="RTCVideoReceiverStats" data-dfn-for="RTCVideoReceiverStats" class=
     "dictionary-members">
@@ -108,32 +110,42 @@
         </p>
       </dd>
       <dt>
-        <dfn><code>meanFreezeDuration</code></dfn> of type
+        <dfn><code>numPauses</code></dfn> of type
         <span class="idlMemberType"><a href="https://heycam.github.io/webidl/#idl-double">double</a></span>
       </dt>
       <dd>
         <p>
-          Mean duration of video freeze, in seconds.
+          Total number of video pauses experienced by this receiver. Video is considered to
+          be paused if time passed since last received packet exceeds 5 seconds.
         </p>
       </dd>
       <dt>
-        <dfn><code>meanTimeBetweenFreezes</code></dfn> of type
+        <dfn><code>totalFreezesDuration</code></dfn> of type
         <span class="idlMemberType"><a href="https://heycam.github.io/webidl/#idl-double">double</a></span>
       </dt>
       <dd>
         <p>
-          Mean time between video freezes, in seconds.
+          Total duration of video freezes, in seconds.
         </p>
       </dd>
       <dt>
-        <dfn><code>harmonicFrameRate</code></dfn> of type
-        <span class="idlMemberType"><a href="https://heycam.github.io/webidl/#idl-unsigned long">unsigned long</a></span>
+        <dfn><code>totalFramesDuration</code></dfn> of type
+        <span class="idlMemberType"><a href="https://heycam.github.io/webidl/#idl-double">double</a></span>
       </dt>
       <dd>
         <p>
-          Harmonic frame rate, in frames per second. It is calculated as:
+          Total duration of rendered video frames, in seconds.
+        </p>
+      </dd>
+      <dt>
+        <dfn><code>sumOfSquaredFramesDuration</code></dfn> of type
+        <span class="idlMemberType"><a href="https://heycam.github.io/webidl/#idl-unsigned long">double</a></span>
+      </dt>
+      <dd>
+        <p>
+          Sum of squared duration of rendered frames. This can be used to calculate harmonic frame rate:
           <p>
-            total_video_duration_secs / sum(frame_duration_secs ^ 2).
+            totalFramesDuration / sumOfSquaredFrameDurations
           </p>
         </p>
       </dd>
