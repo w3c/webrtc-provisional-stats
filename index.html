@@ -107,6 +107,92 @@
       </dd>
     </dl>
   </section>
+  <section id="RTCVideoReceiverStats-dict*">
+    <h3>
+      <dfn>RTCVideoReceiverStats</dfn> dictionary non-standardized members
+    </h3>
+    <pre class="idl">partial dictionary RTCVideoReceiverStats {
+      unsigned long freezeCount;
+      unsigned long pauseCount;
+      double totalFreezesDuration;
+      double totalPausesDuration;
+      double totalFramesDuration;
+      double sumOfSquaredFramesDuration;
+};</pre>
+    <dl data-link-for="RTCVideoReceiverStats" data-dfn-for="RTCVideoReceiverStats" class=
+    "dictionary-members">
+      <dt>
+        <dfn><code>freezeCount</code></dfn> of type
+        <span class="idlMemberType"><a href="https://heycam.github.io/webidl/#idl-unsigned-long">unsigned long</a></span>
+      </dt>
+      <dd>
+        <p>
+          Count the total number of video freezes experienced by this receiver.
+          It is a freeze if frame duration, which is time interval between two
+          consecutively rendered frames, is equal or exceeds
+          Max(3 * avg_frame_duration_ms, avg_frame_duration_ms + 150), where
+          avg_frame_duration_ms is linear average of durations of last 30 rendered
+          frames.
+        </p>
+      </dd>
+      <dt>
+        <dfn><code>pauseCount</code></dfn> of type
+        <span class="idlMemberType"><a href="https://heycam.github.io/webidl/#idl-unsigned-long">unsigned long</a></span>
+      </dt>
+      <dd>
+        <p>
+          Count the total number of video pauses experienced by this receiver.
+          Video is considered to be paused if time passed since last received
+          packet exceeds 5 seconds.
+        </p>
+      </dd>
+      <dt>
+        <dfn><code>totalFreezesDuration</code></dfn> of type
+        <span class="idlMemberType"><a href="https://heycam.github.io/webidl/#idl-double">double</a></span>
+      </dt>
+      <dd>
+        <p>
+          Total duration of rendered frames which are considered as frozen (for
+          definition of freeze see <a>freezeCount</a>), in seconds. This value
+          is updated when a frame is rendered.
+        </p>
+      </dd>
+      <dt>
+        <dfn><code>totalPausesDuration</code></dfn> of type
+        <span class="idlMemberType"><a href="https://heycam.github.io/webidl/#idl-double">double</a></span>
+      </dt>
+      <dd>
+        <p>
+          Total duration of pauses (for definition of pause see <a>pauseCount</a>),
+          in seconds. This value is updated when a frame is rendered.
+        </p>
+      </dd>
+      <dt>
+        <dfn><code>totalFramesDuration</code></dfn> of type
+        <span class="idlMemberType"><a href="https://heycam.github.io/webidl/#idl-double">double</a></span>
+      </dt>
+      <dd>
+        <p>
+          Total duration of all rendered video frames, in seconds. This value is
+          updated when a frame is rendered.
+        </p>
+      </dd>
+      <dt>
+        <dfn><code>sumOfSquaredFramesDuration</code></dfn> of type
+        <span class="idlMemberType"><a href="https://heycam.github.io/webidl/#idl-unsigned long">double</a></span>
+      </dt>
+      <dd>
+        <p>
+          Sum of squared duration of all rendered frames. It can be used to calculate
+          harmonic frame rate:
+          <p>
+            <code><a>totalFramesDuration / sumOfSquaredFrameDurations</a></code>
+          </p>
+          This value is updated when a frame is rendered.
+        </p>
+      </dd>
+    </dl>
+  </section>
 </body>
 
 </html>
