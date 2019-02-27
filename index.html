@@ -91,6 +91,8 @@
     </h3>
     <pre class="idl">partial dictionary RTCAudioReceiverStats {
       unsigned long long jitterBufferFlushes;
+      unsigned long long jitterBufferReceivedPackets;
+      unsigned long long relativePacketArrivalDelay;
 };</pre>
     <dl data-link-for="RTCAudioReceiverStats" data-dfn-for="RTCAudioReceiverStats" class=
     "dictionary-members">
@@ -103,6 +105,29 @@
           Experimental stat which is available <a href="https://docs.google.com/document/d/1stYIZhEmDZ7NJF9gjjsM66eLFJUdc-14a3QutrFbIwI/edit#" title="experiment description">under origin trial in Chromium starting from M72 version</a>.
           Counts the total number of times the jitter buffer
           reaches its maximum capacity and gets flushed.
+        </p>
+      </dd>
+      <dt>
+        <dfn><code>jitterBufferReceivedPackets</code></dfn> of type
+        <span class="idlMemberType"><a href="https://heycam.github.io/webidl/#idl-unsigned-long-long">unsigned long long</a></span>
+      </dt>
+      <dd>
+        <p>
+          Experimental stat which will be available under origin trial in
+          Chrome. Counts the total number of packets received by the jitter
+          buffer.
+        </p>
+      </dd>
+      <dt>
+        <dfn><code>relativePacketArrivalDelay</code></dfn> of type
+        <span class="idlMemberType"><a href="https://heycam.github.io/webidl/#idl-unsigned-long-long">unsigned long long</a></span>
+      </dt>
+      <dd>
+        <p>
+          Experimental stat which will be available under origin trial in
+          Chrome. Counts the difference between the expected packet arrival
+          time, based on the packets we have seen so far, and the actual arrival
+          time in milliseconds for each packet received by the jitter buffer.
         </p>
       </dd>
     </dl>
