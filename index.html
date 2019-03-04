@@ -91,8 +91,7 @@
     </h3>
     <pre class="idl">partial dictionary RTCAudioReceiverStats {
       unsigned long long jitterBufferFlushes;
-      unsigned long long jitterBufferReceivedPackets;
-      unsigned long long relativePacketArrivalDelay;
+      double relativePacketArrivalDelay;
 };</pre>
     <dl data-link-for="RTCAudioReceiverStats" data-dfn-for="RTCAudioReceiverStats" class=
     "dictionary-members">
@@ -108,26 +107,24 @@
         </p>
       </dd>
       <dt>
-        <dfn><code>jitterBufferReceivedPackets</code></dfn> of type
-        <span class="idlMemberType"><a href="https://heycam.github.io/webidl/#idl-unsigned-long-long">unsigned long long</a></span>
-      </dt>
-      <dd>
-        <p>
-          Experimental stat which will be available under origin trial in
-          Chrome. Counts the total number of packets received by the jitter
-          buffer.
-        </p>
-      </dd>
-      <dt>
         <dfn><code>relativePacketArrivalDelay</code></dfn> of type
-        <span class="idlMemberType"><a href="https://heycam.github.io/webidl/#idl-unsigned-long-long">unsigned long long</a></span>
+        <span class="idlMemberType"><a href="https://heycam.github.io/webidl/#idl-double">double</a></span>
       </dt>
       <dd>
         <p>
           Experimental stat which will be available under origin trial in
-          Chrome. Counts the difference between the expected packet arrival
-          time, based on the packets we have seen so far, and the actual arrival
-          time in milliseconds for each packet received by the jitter buffer.
+          Chrome. It is the sum, in seconds, of the difference between the
+          expected packet arrival time, based on the packets we have seen so
+          far, and the actual arrival time when a packet is inserted in the
+          jitter buffer. Expected arrival time is the difference in send time
+          between the received packet and a reference packet previously
+          received. Actual arrival time is the time measured between these
+          packets. The reference packet can be chosen by keeping a finite
+          history of packets and picking the packet such that we maximize the
+          difference between the expected arrival time and the actual arrival
+          time. The average relative packet arrival delay can be calculated by
+          dividing relativePacketArrivalDelay with RTCReceivedRtpStreamStats
+          <a href="https://www.w3.org/TR/webrtc-stats/#dom-rtcreceivedrtpstreamstats-packetsreceived">packetsReceived</a>.
         </p>
       </dd>
     </dl>
