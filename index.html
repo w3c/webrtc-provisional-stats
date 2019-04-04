@@ -85,6 +85,64 @@
       The <dfn>bar</dfn> attribute.
     </p>
   </section>
+  <section id="RTCOutboundRtpStreamStats-dict*">
+    <h3>
+      <dfn>RTCOutboundRtpStreamStats</dfn> dictionary non-standardized members
+    </h3>
+    <pre class="idl">partial dictionary RTCOutboundRtpStreamStats {
+      DOMString  contentType;
+};</pre>
+    <dl data-link-for="RTCOutboundRtpStreamStats" data-dfn-for="RTCOutboundRtpStreamStats" class=
+    "dictionary-members">
+      <dt>
+        <dfn><code>contentType</code></dfn> of type
+        <span class="idlMemberType"><a href="https://heycam.github.io/webidl/#idl-DOMString">DOMString</a></span>
+      </dt>
+      <dd>
+        <p>
+          This metric exposes the <a href="https://webrtc.org/experiments/rtp-hdrext/video-content-type/" title="video-content-type">video-content-type</a>
+          of the last key frame sent. This value is updated every time the last
+          packet of a key frame is sent, and it is updated as follows: if this
+          packet contained the video-content-type RTP header extension value
+          0x00, <code>contentType</code> is <code>"unspecified"</code>, if it is
+          0x01, <code>contentType</code> is <code>"screenshare"</code>. In all
+          other cases, such as if the header extension is missing, its value is
+          invalid or no last packet of a key frame has been sent yet,
+          <code>contentType</code> is missing.
+        </p>
+        </p>
+      </dd>
+    </dl>
+  </section>
+  <section id="RTCInboundRtpStreamStats-dict*">
+    <h3>
+      <dfn>RTCInboundRtpStreamStats</dfn> dictionary non-standardized members
+    </h3>
+    <pre class="idl">partial dictionary RTCInboundRtpStreamStats {
+      DOMString  contentType;
+};</pre>
+    <dl data-link-for="RTCInboundRtpStreamStats" data-dfn-for="RTCInboundRtpStreamStats" class=
+    "dictionary-members">
+      <dt>
+        <dfn><code>contentType</code></dfn> of type
+        <span class="idlMemberType"><a href="https://heycam.github.io/webidl/#idl-DOMString">DOMString</a></span>
+      </dt>
+      <dd>
+        <p>
+          This metric exposes the <a href="https://webrtc.org/experiments/rtp-hdrext/video-content-type/" title="video-content-type">video-content-type</a>
+          of the last key frame received. This value is updated every time the
+          last packet of a key frame is received, and it is updated as follows:
+          if this packet contained the video-content-type RTP header extension
+          value 0x00, <code>contentType</code> is <code>"unspecified"</code>, if
+          it is 0x01, <code>contentType</code> is <code>"screenshare"</code>. In
+          all other cases, such as if the header extension is missing, its value
+          is invalid or no last packet of a key frame has been received yet,
+          <code>contentType</code> is missing.
+        </p>
+        </p>
+      </dd>
+    </dl>
+  </section>
   <section id="RTCAudioReceiverStats-dict*">
     <h3>
       <dfn>RTCAudioReceiverStats</dfn> dictionary non-standardized members
