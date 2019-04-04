@@ -106,9 +106,9 @@
           packet contained the video-content-type RTP header extension value
           0x00, <code>contentType</code> is <code>"unspecified"</code>, if it is
           0x01, <code>contentType</code> is <code>"screenshare"</code>. In all
-          other cases, such as if the header extension is missing or no last
-          packet of a key frame has been sent yet, <code>contentType</code> is
-          missing.
+          other cases, such as if the header extension is missing, its value is
+          invalid or no last packet of a key frame has been sent yet,
+          <code>contentType</code> is missing.
         </p>
         </p>
       </dd>
@@ -135,9 +135,9 @@
           if this packet contained the video-content-type RTP header extension
           value 0x00, <code>contentType</code> is <code>"unspecified"</code>, if
           it is 0x01, <code>contentType</code> is <code>"screenshare"</code>. In
-          all other cases, such as if the header extension is missing or no last
-          packet of a key frame has been received yet, <code>contentType</code>
-          is missing.
+          all other cases, such as if the header extension is missing, its value
+          is invalid or no last packet of a key frame has been received yet,
+          <code>contentType</code> is missing.
         </p>
         </p>
       </dd>
