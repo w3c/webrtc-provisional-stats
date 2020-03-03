@@ -120,6 +120,7 @@
     </h3>
     <pre class="idl">partial dictionary RTCInboundRtpStreamStats {
       DOMString  contentType;
+      double jitterBufferTargetDelay;
 };</pre>
     <dl data-link-for="RTCInboundRtpStreamStats" data-dfn-for="RTCInboundRtpStreamStats" class=
     "dictionary-members">
@@ -139,6 +140,17 @@
           is invalid or no last packet of a key frame has been received yet,
           <code>contentType</code> is missing.
         </p>
+      </dd>
+      <dt>
+        <dfn><code>jitterBufferTargetDelay</code></dfn> of type
+        <span class="idlMemberType"><a href="https://heycam.github.io/webidl/#idl-double">double</a></span>
+      </dt>
+      <dd>
+        <p>
+          This value is increased by the target jitter buffer delay every time a
+          sample is emitted by the jitter buffer. The added target is the target
+          delay, in seconds, at the time that the sample was emitted from the
+          jitter buffer.
         </p>
       </dd>
     </dl>
