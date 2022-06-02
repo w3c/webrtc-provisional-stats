@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <title>Provisional Identifiers for WebRTC's Statistics API</title>
-  <script src="https://www.w3.org/Tools/respec/respec-w3c-common" class="remove"></script>
+  <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove"></script>
   <script class='remove'>
   "use strict";
   // See https://github.com/w3c/respec/wiki/ for how to configure ReSpec
@@ -30,20 +30,8 @@
     "shortName": "webrtc-provisional-stats",
     "specStatus": "unofficial",
     "subjectPrefix": "[webrtc-provisional-stats]",
-    // "wg": "WICG",
-    "otherLinks": [{
-      "key": "Repository",
-      "data": [{
-        "value": "We are on Github.",
-        "href": "https://github.com/w3c/webrtc-provisional-stats"
-      }, {
-        "value": "File a bug.",
-        "href": "https://github.com/w3c/webrtc-provisional-stats/issues"
-      }, {
-        "value": "Commit history.",
-        "href": "https://github.com/w3c/webrtc-provisional-stats/commits/master"
-      }, ]
-    }],
+    "group": "webrtc",
+    "github": "https://github.com/w3c/webrtc-provisional-stats/"
   };
   </script>
 </head>
@@ -64,25 +52,6 @@
     <p>
       See <a href="https://github.com/w3c/respec/wiki/User's-Guide">ReSpec's
       user guide</a> for how to get started!
-    </p>
-  </section>
-  <section data-dfn-for="Foo">
-    <h2>Start your spec!</h2>
-    <pre class="idl">
-    interface Foo {
-      attribute Bar bar;
-      void doTheFoo();
-    };
-    </pre>
-    <p>
-      See <a href="https://github.com/w3c/respec/wiki/WebIDL-Guide">ReSpec's
-      WebIDL guide</a> for how to write [[!WebIDL-2]] interfaces!
-    </p>
-    <p>
-      The <dfn>doTheFoo</dfn> method.
-    </p>
-    <p>
-      The <dfn>bar</dfn> attribute.
     </p>
   </section>
   <section id="RTCOutboundRtpStreamStats-dict*">
@@ -256,7 +225,7 @@
           Sum of squared duration of all rendered frames. It can be used to calculate
           harmonic frame rate:
           <p>
-            <code><a>totalFramesDuration / sumOfSquaredFrameDurations</a></code>
+            {{ RTCVideoReceiverStats/totalFramesDuration}}<code> / sumOfSquaredFrameDurations</code>
           </p>
           This value is updated when a frame is rendered.
         </p>
