@@ -176,6 +176,7 @@
       <dfn>RTCOutboundRtpStreamStats</dfn> dictionary non-standardized members
     </h3>
     <pre class="idl">partial dictionary RTCOutboundRtpStreamStats {
+      unsigned long         rtxSsrc;
       DOMString             contentType;
       DOMHighResTimeStamp   lastPacketSentTimestamp;
       unsigned long         packetsDiscardedOnSend;
@@ -193,6 +194,19 @@
 };</pre>
     <dl data-link-for="RTCOutboundRtpStreamStats" data-dfn-for="RTCOutboundRtpStreamStats" class=
     "dictionary-members">
+      <dt>
+        <dfn>rtxSsrc</dfn> of type <span class="idlMemberType">unsigned long</span>
+      </dt>
+      <dd>
+        <p>
+          If RTX is negotiated as a separate stream, this is the <a>SSRC</a> of the
+          RTX stream that is associated with this stream's {{RTCRtpStreamStats/ssrc}}.
+          If RTX is not negotiated, this value is not present. Whether or not RTX is
+          negotiated, retransmissions are accounted for in the
+          {{RTCSentRtpStreamStats/bytesSent}} and
+          {{RTCOutboundRtpStreamStats/retransmittedBytesSent}} stats of this object.
+        </p>
+      </dd>
       <dt>
         <dfn><code>contentType</code></dfn> of type
         <span class="idlMemberType"><a href="https://heycam.github.io/webidl/#idl-DOMString">DOMString</a></span>
