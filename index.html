@@ -1073,10 +1073,22 @@
       <dfn>RTCTransportStats</dfn> dictionary non-standardized members
     </h3>
     <pre class="idl">partial dictionary RTCTransportStats {
+      DOMString rtcpTransportStatsId;
       DOMString tlsGroup;
 };</pre>
     <dl data-link-for="RTCTransportStats" data-dfn-for="RTCTransportStats" class=
     "dictionary-members">
+      <dt>
+        <dfn>rtcpTransportStatsId</dfn> of type <span class=
+        "idlMemberType">DOMString</span>
+      </dt>
+      <dd>
+        <p>
+          If RTP and RTCP are not multiplexed, this is the {{RTCStats/id}} of the transport
+          that gives stats for the RTCP component, and this record has only the RTP
+          component stats.
+        </p>
+      </dd>
       <dt>
         <dfn>tlsGroup</dfn> of type <span class=
         "idlMemberType">DOMString</span>
