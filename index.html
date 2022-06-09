@@ -61,8 +61,8 @@
     <h2>Terminology</h2>
     <p>
       {{RTCStats}} and dictionaries that are extended in this document are
-      defined in [[WEBRTC-STATS]]. The term {{DOMHighResTimeStamp}} is defined
-      in [[HR-TIME]].
+      defined in [[WEBRTC-STATS]]. The term <code>RTCPeerConnection</code> is defined in
+      [[WEBRTC]] and {{DOMHighResTimeStamp}} is defined in [[HR-TIME]].
     </p>
   </section>
   <section>
@@ -127,6 +127,46 @@
           represents a media format that the implementation is prepared to encode or
           decode. If the dictionary member is not present, it means
           that this media format can be both encoded and decoded.
+        </p>
+      </dd>
+    </dl>
+  </section>
+  <section id="RTCMediaSourceStats-dict*">
+    <h3>
+      <dfn>RTCMediaSourceStats</dfn> dictionary non-standardized members
+    </h3>
+    <pre class="idl">partial dictionary RTCMediaSourceStats {
+      boolean relayedSource;
+};</pre>
+    <dl data-link-for="RTCMediaSourceStats" data-dfn-for="RTCMediaSourceStats" class=
+    "dictionary-members">
+      <dt>
+        <dfn>relayedSource</dfn> of type <span class="idlMemberType">boolean</span>
+      </dt>
+      <dd>
+        <code>true</code> if the source is remote, for instance if it is
+        sourced from another host via an <code>RTCPeerConnection</code>.
+        <code>false</code> otherwise.
+      </dd>
+    </dl>
+  </section>
+  <section id="RTCVideoSourceStats-dict*">
+    <h3>
+      <dfn>RTCVideoSourceStats</dfn> dictionary non-standardized members
+    </h3>
+    <pre class="idl">partial dictionary RTCVideoSourceStats {
+      unsigned long bitDepth;
+};</pre>
+    <dl data-link-for="RTCVideoSourceStats" data-dfn-for="RTCVideoSourceStats" class=
+    "dictionary-members">
+      <dt>
+        <dfn>bitDepth</dfn> of type <span class="idlMemberType">unsigned
+        long</span>
+      </dt>
+      <dd>
+        <p>
+          The bit depth per pixel of the last frame originating from this source. Before a
+          frame has been produced this member does not exist.
         </p>
       </dd>
     </dl>
@@ -761,7 +801,13 @@
       <dfn>RTCIceServerStats</dfn> dictionary non-standardized members
     </h3>
     <pre class="idl">partial dictionary RTCIceServerStats {
-       RTCNetworkType networkType;
+       RTCNetworkType       networkType;
+       required DOMString   url;
+       long                 port;
+       DOMString            relayProtocol;
+       unsigned long        totalRequestsSent;
+       unsigned long        totalResponsesReceived;
+       double               totalRoundTripTime;
 };</pre>
     <dl data-link-for="RTCIceServerStats" data-dfn-for="RTCIceServerStats" class="dictionary-members">
       <dt>
@@ -775,6 +821,62 @@
         </div>
         <p>
           Represents the type of network interface used.
+        </p>
+      </dd>
+      <dt>
+        <dfn>url</dfn> of type <span class="idlMemberType">DOMString</span>
+      </dt>
+      <dd>
+        <p>
+          The URL of the ICE server (e.g. TURN or STUN server).
+        </p>
+      </dd>
+      <dt>
+        <dfn>port</dfn> of type <span class="idlMemberType">long</span>
+      </dt>
+      <dd>
+        <p>
+          It is the port number used by the client.
+        </p>
+      </dd>
+      <dt>
+        <dfn><code>relayProtocol</code></dfn> of type <span class=
+        "idlMemberType">DOMString</span>
+      </dt>
+      <dd>
+        <p>
+          It is the protocol used by the endpoint to communicate with the ICE server.
+          Valid values are <code>udp</code>, <code>tcp</code>, or <code>tls</code> as 
+          defined in {{RTCIceCandidateStats}}.
+          This is the same value that is used for the relay protocol of local ICE candidates.
+        </p>
+      </dd>
+      <dt>
+        <dfn>totalRequestsSent</dfn> of type <span class=
+        "idlMemberType">unsigned long</span>
+      </dt>
+      <dd>
+        <p>
+          The total amount of requests that have been sent to this server.
+        </p>
+      </dd>
+      <dt>
+        <dfn>totalResponsesReceived</dfn> of type <span class=
+        "idlMemberType">unsigned long</span>
+      </dt>
+      <dd>
+        <p>
+          The total amount of responses received from this server.
+        </p>
+      </dd>
+      <dt>
+        <dfn>totalRoundTripTime</dfn> of type <span class=
+        "idlMemberType">double</span>
+      </dt>
+      <dd>
+        <p>
+          The sum of RTTs for all requests that have been sent where a response has been
+          received.
         </p>
       </dd>
     </dl>
@@ -815,6 +917,269 @@
       </dd>
     </dl>
   </section>
+  <section id="RTCIceCandidatePairStats-dict*">
+    <h3>
+      <dfn>RTCIceCandidatePairStats</dfn> dictionary non-standardized members
+    </h3>
+    <pre class="idl">partial dictionary RTCIceCandidatePairStats {
+      DOMHighResTimeStamp   firstRequestTimestamp;
+      DOMHighResTimeStamp   lastRequestTimestamp;
+      DOMHighResTimeStamp   lastResponseTimestamp;
+      unsigned long         circuitBreakerTriggerCount;
+      unsigned long long    retransmissionsReceived;
+      unsigned long long    retransmissionsSent;
+      DOMHighResTimeStamp   consentExpiredTimestamp;
+      unsigned long long    requestBytesSent;
+      unsigned long long    consentRequestBytesSent;
+      unsigned long long    responseBytesSent;
+};</pre>
+    <dl data-link-for="RTCIceCandidatePairStats" data-dfn-for="RTCIceCandidatePairStats" class=
+    "dictionary-members">
+      <dt>
+        <dfn>firstRequestTimestamp</dfn> of type <span class=
+        "idlMemberType">DOMHighResTimeStamp</span>
+      </dt>
+      <dd>
+        <p>
+          Represents the timestamp at which the first STUN request was sent on this
+          particular candidate pair.
+        </p>
+      </dd>
+      <dt>
+        <dfn>lastRequestTimestamp</dfn> of type <span class=
+        "idlMemberType">DOMHighResTimeStamp</span>
+      </dt>
+      <dd>
+        <p>
+          Represents the timestamp at which the last STUN request was sent on this
+          particular candidate pair. The average interval between two consecutive
+          connectivity checks sent can be calculated with <code>(lastRequestTimestamp -
+          firstRequestTimestamp) / requestsSent</code>.
+        </p>
+      </dd>
+      <dt>
+        <dfn>lastResponseTimestamp</dfn> of type <span class=
+        "idlMemberType">DOMHighResTimeStamp</span>
+      </dt>
+      <dd>
+        <p>
+          Represents the timestamp at which the last STUN response was received on this
+          particular candidate pair.
+        </p>
+      </dd>
+      <dt>
+        <dfn>circuitBreakerTriggerCount</dfn> of type <span class=
+        "idlMemberType">unsigned long</span>
+      </dt>
+      <dd>
+        <p>
+          Represents the number of times the circuit breaker is triggered for this
+          particular 5-tuple. Ceasing transmission when a circuit breaker is triggered is
+          defined in Section 4.5 of [[!RFC8083]]. The field MUST return undefined for
+          user-agents that do not implement the circuit-breaker algorithm.
+        </p>
+      </dd>
+      <dt>
+        <dfn>retransmissionsReceived</dfn> of type <span class=
+        "idlMemberType">unsigned long long</span>
+      </dt>
+      <dd>
+        <p>
+          Represents the total number of connectivity check request retransmissions
+          received. Retransmissions are defined as connectivity check requests with a
+          TRANSACTION_TRANSMIT_COUNTER attribute where the "req" field is larger than 1, as
+          defined in [[!RFC7982]].
+        </p>
+      </dd>
+      <dt>
+        <dfn>retransmissionsSent</dfn> of type <span class=
+        "idlMemberType">unsigned long long</span>
+      </dt>
+      <dd>
+        <p>
+          Represents the total number of connectivity check request retransmissions sent.
+        </p>
+      </dd>
+      <dt>
+        <dfn>consentExpiredTimestamp</dfn> of type <span class=
+        "idlMemberType">DOMHighResTimeStamp</span>
+      </dt>
+      <dd>
+        <p>
+          Represents the timestamp at which the latest valid STUN binding response expired,
+          as defined in [[!RFC7675]] section 5.1. If a valid STUN binding response has not
+          been made <code>responsesReceived</code> is zero) or the latest one has not
+          expired this value must be undefined.
+        </p>
+      </dd>
+      <dt>
+        <dfn><code>requestBytesSent</code></dfn> of type <span class=
+        "idlMemberType">unsigned long long</span>
+      </dt>
+      <dd>
+        <p>
+          Total number of bytes sent for connectivity checks.
+        </p>
+      </dd>
+      <dt>
+      <dfn><code>consentRequestBytesSent</code></dfn> of type <span class=
+        "idlMemberType">unsigned long long</span>
+      </dt>
+      <dd>
+        <p>
+          Total number of bytes sent for consent requests.
+        </p>
+      </dd>
+      <dt>
+      <dfn><code>responseBytesSent</code></dfn> of type <span class=
+        "idlMemberType">unsigned long long</span>
+      </dt>
+      <dd>
+        <p>
+          Total number of bytes sent for connectivity check responses.
+        </p>
+      </dd>
+    </dl>
+  </section>
+  <section id="RTCTransportStats-dict*">
+    <h3>
+      <dfn>RTCTransportStats</dfn> dictionary non-standardized members
+    </h3>
+    <pre class="idl">partial dictionary RTCTransportStats {
+      DOMString tlsGroup;
+};</pre>
+    <dl data-link-for="RTCTransportStats" data-dfn-for="RTCTransportStats" class=
+    "dictionary-members">
+      <dt>
+        <dfn>tlsGroup</dfn> of type <span class=
+        "idlMemberType">DOMString</span>
+      </dt>
+      <dd>
+        <p>
+          Descriptive name of the group used for the encryption, as defined in the
+          "Description" column of the IANA TLS Supported Groups registry
+          [[!IANA-TLS-GROUPS]].
+        </p>
+      </dd>
+    </dl>
+  </section>
+  <section id="RTCPeerConnectionStats-dict*">
+    <h3>
+      <dfn>RTCPeerConnectionStats</dfn> dictionary non-standardized members
+    </h3>
+    <pre class="idl">partial dictionary RTCPeerConnectionStats {
+      unsigned long dataChannelsRequested;
+      unsigned long dataChannelsAccepted;
+};</pre>
+    <dl data-link-for="RTCPeerConnectionStats" data-dfn-for="RTCPeerConnectionStats" class=
+    "dictionary-members">
+      <dt>
+        <dfn>dataChannelsRequested</dfn> of type <span class=
+        "idlMemberType">unsigned long</span>
+      </dt>
+      <dd>
+        <p>
+          Represents the number of unique <code>RTCDataChannel</code>s returned from a successful
+          <code>RTCPeerConnection/createDataChannel()</code> call on the <code>RTCPeerConnection</code>. If the underlying data
+          transport is not established, these may be in the <code>"connecting"</code> state.
+        </p>
+      </dd>
+      <dt>
+        <dfn>dataChannelsAccepted</dfn> of type <span class=
+        "idlMemberType">unsigned long</span>
+      </dt>
+      <dd>
+        <p>
+          Represents the number of unique <code>RTCDataChannel</code>s signaled in a <code>RTCPeerConnection.ondatachannel</code> event on
+          the <code>RTCPeerConnection</code>.
+        </p>
+      </dd>
+    </dl>
+    <p>
+      The sum of <code>dataChannelsRequested</code> and <code>dataChannelsAccepted</code> is always greater than or
+      equal to <code>dataChannelsOpened</code> - the difference is equal to the number of channels that
+      have been requested, but have not reached the <code>"open"</code> state.
+    </p>
+  </section>
+  <section id="RTCRtpContributingSourceStats-dict*">
+    <h3>
+      <dfn>RTCRtpContributingSourceStats</dfn> dictionary non-standardized members
+    </h3>
+    <p>
+      The {{RTCRtpContributingSourceStats}} dictionary represents the measurement
+      metrics for a contributing source (CSRC) that is contributing to an incoming <code>RTP stream</code>.
+      Each contributing source produces a stream of RTP packets, which are combined by a mixer
+      into a single stream of RTP packets that is ultimately received by the WebRTC endpoint.
+      Information about the sources that contributed to this combined stream may be provided in
+      the CSRC list or [[RFC6465]] header extension of received RTP packets. The
+      {{RTCStats/timestamp}} of this stats object is the
+      most recent time an RTP packet the source contributed to was received and counted by
+      {{RTCRtpContributingSourceStats/packetsContributedTo}}.
+    </p>
+    <pre class="idl">dictionary RTCRtpContributingSourceStats : RTCStats {
+      required unsigned long   contributorSsrc;
+      required DOMString       inboundRtpStreamId;
+      unsigned long            packetsContributedTo;
+      double                   audioLevel;
+};</pre>
+    <dl data-link-for="RTCRtpContributingSourceStats" data-dfn-for="RTCRtpContributingSourceStats" class=
+    "dictionary-members">
+      <dt>
+        <dfn>contributorSsrc</dfn> of type <span class=
+        "idlMemberType">unsigned long</span>
+      </dt>
+      <dd>
+        <p>
+          The <code>SSRC</code> identifier of the contributing source represented by this stats object,
+          as defined by [[!RFC3550]]. It is a 32-bit unsigned integer that appears in the
+          CSRC list of any packets the relevant source contributed to.
+        </p>
+      </dd>
+      <dt>
+        <dfn>inboundRtpStreamId</dfn> of type <span class=
+        "idlMemberType">DOMString</span>
+      </dt>
+      <dd>
+        <p>
+          The ID of the {{RTCInboundRtpStreamStats}} object representing
+          the inbound <code>RTP stream</code> that this contributing source is contributing to.
+        </p>
+      </dd>
+      <dt>
+        <dfn>packetsContributedTo</dfn> of type <span class=
+        "idlMemberType">unsigned long</span>
+      </dt>
+      <dd>
+        <p>
+          The total number of RTP packets that this contributing source contributed to.
+          This value is incremented each time a packet is counted by
+          {{RTCInboundRtpStreamStats}}.{{RTCReceivedRtpStreamStats/packetsReceived}}, and the packet's CSRC
+          list (as defined by [[!RFC3550]] section 5.1) contains the <code>SSRC</code> identifier of
+          this contributing source, {{contributorSsrc}}.
+        </p>
+      </dd>
+      <dt>
+        <dfn>audioLevel</dfn> of type <span class=
+        "idlMemberType">double</span>
+      </dt>
+      <dd>
+        <p>
+          Present if the last received RTP packet that this source contributed to contained
+          an [[!RFC6465]] mixer-to-client audio level header extension. The value of
+          {{audioLevel}} is between 0..1 (linear), where 1.0 represents 0 dBov, 0
+          represents silence, and 0.5 represents approximately 6 dBSPL change in the sound
+          pressure level from 0 dBov.
+        </p>
+        <p>
+          The [[!RFC6465]] header extension contains values in the range 0..127, in units
+          of -dBov, where 127 represents silence. To convert these values to the linear
+          0..1 range of {{audioLevel}}, a value of 127 is converted to 0, and all
+          other values are converted using the equation: <code>f(rfc6465_level) =
+          10^(-rfc6465_level/20)</code>.
+        </p>
+      </dd>
+    </dl>
+  </section>
   <section>
     <h3>
       <dfn>RTCNetworkType</dfn> enum
@@ -834,88 +1199,87 @@ enum RTCNetworkType {
     "vpn",
     "unknown"
 };</pre>
-        <table data-link-for="RTCNetworkType" data-dfn-for="RTCNetworkType" class="simple">
-          <tbody>
-            <tr>
-              <th colspan="2">
-                Enumeration description
-              </th>
-            </tr>
-            <tr>
-              <td>
-                <dfn><code>bluetooth</code></dfn>
-              </td>
-              <td>
-                <p>
-                  A Bluetooth connection.
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <dfn><code>cellular</code></dfn>
-              </td>
-              <td>
-                <p>
-                  A cellular connection (e.g., EDGE, HSPA, LTE, etc.).
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <dfn><code>ethernet</code></dfn>
-              </td>
-              <td>
-                <p>
-                  An Ethernet connection.
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <dfn><code>wifi</code></dfn>
-              </td>
-              <td>
-                <p>
-                  A Wi-Fi connection.
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <dfn><code>wimax</code></dfn>
-              </td>
-              <td>
-                <p>
-                  A WiMAX connection.
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <dfn><code>vpn</code></dfn>
-              </td>
-              <td>
-                <p>
-                  The connection runs over a VPN. The underlying network type is not available.
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <dfn><code>unknown</code></dfn>
-              </td>
-              <td>
-                <p>
-                  The user agent is unable or unwilling to identify the underlying connection
-                  technology.
-                </p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
+      <table data-link-for="RTCNetworkType" data-dfn-for="RTCNetworkType" class="simple">
+        <tbody>
+          <tr>
+            <th colspan="2">
+              Enumeration description
+            </th>
+          </tr>
+          <tr>
+            <td>
+              <dfn><code>bluetooth</code></dfn>
+            </td>
+            <td>
+              <p>
+                A Bluetooth connection.
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <dfn><code>cellular</code></dfn>
+            </td>
+            <td>
+              <p>
+                A cellular connection (e.g., EDGE, HSPA, LTE, etc.).
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <dfn><code>ethernet</code></dfn>
+            </td>
+            <td>
+              <p>
+                An Ethernet connection.
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <dfn><code>wifi</code></dfn>
+            </td>
+            <td>
+              <p>
+                A Wi-Fi connection.
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <dfn><code>wimax</code></dfn>
+            </td>
+            <td>
+              <p>
+                A WiMAX connection.
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <dfn><code>vpn</code></dfn>
+            </td>
+            <td>
+              <p>
+                The connection runs over a VPN. The underlying network type is not available.
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <dfn><code>unknown</code></dfn>
+            </td>
+            <td>
+              <p>
+                The user agent is unable or unwilling to identify the underlying connection
+                technology.
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
 </body>
-
 </html>
