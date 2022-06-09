@@ -1090,6 +1090,94 @@
       </dd>
     </dl>
   </section>
+  <section id="RTCSctpTransportStats-dict*">
+    <h3>
+      <dfn>RTCSctpTransportStats</dfn> dictionary non-standardized members
+    </h3>
+    <p>
+      An {{RTCSctpTransportStats}} object represents the stats
+      corresponding to an {{RTCSctpTransport}} described in
+      [[!WEBRTC]].
+    </p>
+    <p>
+      There is only one {{RTCSctpTransportStats}} object, since the PeerConnection
+      can only have one SCTP transport.
+    </p>
+    <div>
+      <pre class="idl">dictionary RTCSctpTransportStats : RTCStats {
+        DOMString transportId;
+        double smoothedRoundTripTime;
+        unsigned long congestionWindow;
+        unsigned long receiverWindow;
+        unsigned long mtu;
+        unsigned long unackData;
+};</pre>
+      <dl data-link-for="RTCSctpTransportStats" data-dfn-for="RTCSctpTransportStats" class=
+          "dictionary-members">
+        <dt>
+          <dfn>transportId</dfn> of type DOMString
+        </dt>
+        <dd>
+          <p>
+            The identifier of the object that was inspected to produce the {{RTCTransportStats}}
+            for the DTLSTransport and ICETransport supporting the SCTP transport.
+          </p>
+        </dd>
+        <dt>
+          <dfn>smoothedRoundTripTime</dfn> of type
+          <span class="idlMemberType">double</span>
+        </dt>
+        <dd>
+          <p>
+            The latest smoothed round-trip time value, corresponding to
+            spinfo_srtt defined in [[RFC6458]] but converted to seconds.
+            If there has been no round-trip time measurements yet, this
+            value is undefined.
+          </p>
+        </dd>
+        <dt>
+          <dfn>congestionWindow</dfn> of type
+          <span class="idlMemberType">unsigned long</span>
+        </dt>
+        <dd>
+          <p>
+            The latest congestion window, corresponding to
+            spinfo_cwnd defined in [[RFC6458]].
+          </p>
+        </dd>
+        <dt>
+          <dfn>receiverWindow</dfn> of type
+          <span class="idlMemberType">unsigned long</span>
+        </dt>
+        <dd>
+          <p>
+            The latest receiver window, corresponding to
+            sstat_rwnd defined in [[RFC6458]].
+          </p>
+        </dd>
+        <dt>
+          <dfn>mtu</dfn> of type
+          <span class="idlMemberType">unsigned long</span>
+        </dt>
+        <dd>
+          <p>
+            The latest maximum transmission unit, corresponding to
+            spinfo_mtu defined in [[RFC6458]].
+          </p>
+        </dd>
+        <dt>
+          <dfn>unackData</dfn> of type
+          <span class="idlMemberType">unsigned long</span>
+        </dt>
+        <dd>
+          <p>
+            The number of unacknowledged DATA chunks, corresponding to
+            sstat_unackdata defined in [[RFC6458]].
+          </p>
+        </dd>
+      </dl>
+    </div>
+  </section>
   <section id="RTCPeerConnectionStats-dict*">
     <h3>
       <dfn>RTCPeerConnectionStats</dfn> dictionary non-standardized members
