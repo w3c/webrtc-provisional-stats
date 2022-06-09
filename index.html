@@ -54,6 +54,72 @@
       user guide</a> for how to get started!
     </p>
   </section>
+  <section>
+    <h3>
+      <dfn>RTCCodecType</dfn> enum
+    </h3>
+    <div>
+      <pre class="idl">enum RTCCodecType {
+"encode",
+"decode",
+};</pre>
+      <table data-link-for="RTCCodecType" data-dfn-for="RTCCodecType" class="simple">
+  <caption>{{RTCCodecType}} Enumeration description</caption>
+        <thead>
+          <tr>
+<th>Enum value</th><th>Description</th>
+          </tr>
+  </thead>
+  <tbody>
+          <tr>
+            <td>
+              <dfn>encode</dfn>
+            </td>
+            <td>
+              <p>
+                The attached {{RTCCodecStats}} represents a media format that
+                is being encoded, or that the implementation is prepared to encode.
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <dfn>decode</dfn>
+            </td>
+            <td>
+              <p>
+                The attached {{RTCCodecStats}} represents a media format that
+                the implementation is prepared to decode.
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <section id="RTCCodecStats-dict*">
+    <h3>
+      <dfn>RTCCodecStats</dfn> dictionary non-standardized members
+    </h3>
+    <pre class="idl">partial dictionary RTCCodecStats {
+      RTCCodecType codecType;
+};</pre>
+    <dl data-link-for="RTCCodecStats" data-dfn-for="RTCCodecStats" class=
+    "dictionary-members">
+      <dt>
+        <dfn>codecType</dfn> of type <span class=
+        "idlMemberType">{{RTCCodecType}}</span>
+      </dt>
+      <dd>
+        <p>
+          {{RTCCodecType/"encode"}} or {{RTCCodecType/"decode"}}, depending on whether this object
+          represents a media format that the implementation is prepared to encode or
+          decode. If the dictionary member is not present, it means
+          that this media format can be both encoded and decoded.
+        </p>
+      </dd>
+    </dl>
+  </section>
   <section id="RTCOutboundRtpStreamStats-dict*">
     <h3>
       <dfn>RTCOutboundRtpStreamStats</dfn> dictionary non-standardized members
@@ -83,13 +149,167 @@
       </dd>
     </dl>
   </section>
+  <section id="RTCReceivedRtpStreamStats-dict*">
+    <h3>
+      <dfn>RTCReceivedRtpStreamStats</dfn> dictionary non-standardized members
+    </h3>
+    <pre class="idl">partial dictionary RTCReceivedRtpStreamStats {
+      unsigned long long   packetsRepaired;
+      unsigned long long   burstPacketsLost;
+      unsigned long long   burstPacketsDiscarded;
+      unsigned long        burstLossCount;
+      unsigned long        burstDiscardCount;
+      double               burstLossRate;
+      double               burstDiscardRate;
+      double               gapLossRate;
+      double               gapDiscardRate;
+      unsigned long        partialFramesLost;
+      unsigned long        fullFramesLost;
+};</pre>
+    <dl data-link-for="RTCReceivedRtpStreamStats" data-dfn-for="RTCReceivedRtpStreamStats" class=
+    "dictionary-members">
+      <dt>
+        <dfn>packetsRepaired</dfn> of type <span class=
+        "idlMemberType">unsigned long long</span>
+      </dt>
+      <dd>
+        <p>
+          The cumulative number of lost RTP packets repaired after applying an
+          error-resilience mechanism [[XRBLOCK-STATS]]. It is measured for the primary
+          source RTP packets and only counted for RTP packets that have no further chance
+          of repair. To clarify, the value is upper-bound to the cumulative number of lost
+          packets. Calculated as defined in [[!RFC7509]] section 3.1 and Appendix A.b.
+        </p>
+      </dd>
+      <dt>
+        <dfn>burstPacketsLost</dfn> of type <span class=
+        "idlMemberType">unsigned long long</span>
+      </dt>
+      <dd>
+        <p>
+          The cumulative number of RTP packets lost during loss bursts, Appendix A (c) of
+          [[!RFC6958]].
+        </p>
+      </dd>
+      <dt>
+        <dfn>burstPacketsDiscarded</dfn> of type <span class=
+        "idlMemberType">unsigned long long</span>
+      </dt>
+      <dd>
+        <p>
+          The cumulative number of RTP packets discarded during discard bursts, Appendix A
+          (b) of [[!RFC7003]].
+        </p>
+      </dd>
+      <dt>
+        <dfn>burstLossCount</dfn> of type <span class="idlMemberType">unsigned
+        long</span>
+      </dt>
+      <dd>
+        <p>
+          The cumulative number of bursts of lost RTP packets, Appendix A (e) of
+          [[!RFC6958]].
+        </p>
+        <p>
+          [[!RFC3611]] recommends a Gmin (threshold) value of 16 for classifying a sequence
+          of packet losses or discards as a burst.
+        </p>
+      </dd>
+      <dt>
+        <dfn>burstDiscardCount</dfn> of type <span class=
+        "idlMemberType">unsigned long</span>
+      </dt>
+      <dd>
+        <p>
+          The cumulative number of bursts of discarded RTP packets, Appendix A (e) of
+          [[!RFC8015]].
+        </p>
+      </dd>
+      <dt>
+        <dfn>burstLossRate</dfn> of type <span class=
+        "idlMemberType">double</span>
+      </dt>
+      <dd>
+        <p>
+          The fraction of RTP packets lost during bursts to the total number of RTP packets
+          expected in the bursts. As defined in Appendix A (a) of [[!RFC7004]], however,
+          the actual value is reported without multiplying by 32768.
+        </p>
+      </dd>
+      <dt>
+        <dfn>burstDiscardRate</dfn> of type <span class=
+        "idlMemberType">double</span>
+      </dt>
+      <dd>
+        <p>
+          The fraction of RTP packets discarded during bursts to the total number of RTP
+          packets expected in bursts. As defined in Appendix A (e) of [[!RFC7004]],
+          however, the actual value is reported without multiplying by 32768.
+        </p>
+      </dd>
+      <dt>
+        <dfn>gapLossRate</dfn> of type <span class=
+        "idlMemberType">double</span>
+      </dt>
+      <dd>
+        <p>
+          The fraction of RTP packets lost during the gap periods. Appendix A (b) of
+          [[!RFC7004]], however, the actual value is reported without multiplying by 32768.
+        </p>
+      </dd>
+      <dt>
+        <dfn>gapDiscardRate</dfn> of type <span class=
+        "idlMemberType">double</span>
+      </dt>
+      <dd>
+        <p>
+          The fraction of RTP packets discarded during the gap periods. Appendix A (f) of
+          [[!RFC7004]], however, the actual value is reported without multiplying by 32768.
+        </p>
+      </dd>
+      <dt>
+        <dfn>partialFramesLost</dfn> of type <span class=
+        "idlMemberType">unsigned long</span>
+      </dt>
+      <dd>
+        <p>
+          Only exists for video. The cumulative number of partial frames lost. The measurement
+          begins when the receiver is created and is a cumulative metric as defined in
+          Appendix A (j) of [[!RFC7004]]. This metric is incremented when the frame is sent
+          to the decoder. If the partial frame is received and recovered via retransmission
+          or FEC before decoding, the <code>framesReceived</code> counter is incremented.
+        </p>
+      </dd>
+      <dt>
+        <dfn>fullFramesLost</dfn> of type <span class="idlMemberType">unsigned
+        long</span>
+      </dt>
+      <dd>
+        <p>
+          Only exists for video. The cumulative number of full frames lost. The measurement
+          begins when the receiver is created and is a cumulative metric as defined in
+          Appendix A (i) of [[!RFC7004]].
+        </p>
+      </dd>
+    </dl>
+  </section>
   <section id="RTCInboundRtpStreamStats-dict*">
     <h3>
       <dfn>RTCInboundRtpStreamStats</dfn> dictionary non-standardized members
     </h3>
     <pre class="idl">partial dictionary RTCInboundRtpStreamStats {
-      DOMString  contentType;
-      double jitterBufferTargetDelay;
+      DOMString            contentType;
+      double               jitterBufferTargetDelay;
+      unsigned long        frameBitDepth;
+      boolean              voiceActivityFlag;
+      double               averageRtcpInterval;
+      unsigned long long   packetsFailedDecryption;
+      unsigned long long   packetsDuplicated;
+      record&lt;USVString, unsigned long long&gt; perDscpPacketsReceived;
+      unsigned long        sliCount;
+      unsigned long long   totalSamplesDecoded;
+      unsigned long long   samplesDecodedWithSilk;
+      unsigned long long   samplesDecodedWithCelt;
 };</pre>
     <dl data-link-for="RTCInboundRtpStreamStats" data-dfn-for="RTCInboundRtpStreamStats" class=
     "dictionary-members">
@@ -121,6 +341,122 @@
           delay, in seconds, at the time that the sample was emitted from the
           jitter buffer. To get the average target delay, divide by
           <code>jitterBufferEmittedCount</code>.
+        </p>
+      </dd>
+      <dt>
+        <dfn>frameBitDepth</dfn> of type <span class="idlMemberType">unsigned
+        long</span>
+      </dt>
+      <dd>
+        <p>
+          Only exists for video. Represents the bit depth per pixel of the last decoded frame.
+          Typical values are 24, 30, or 36 bits.
+          Before the first frame is decoded this member does not exist.
+        </p>
+      </dd>
+      <dt>
+        <dfn>voiceActivityFlag</dfn> of type <span class=
+        "idlMemberType">boolean</span>
+      </dt>
+      <dd>
+        <p>
+          Only exists for audio. Whether the last RTP packet whose frame was delivered to the
+          <code>RTCRtpReceiver</code>'s <code>MediaStreamTrack</code> for playout contained voice activity or not based
+
+          on the presence of the V bit in the extension header, as defined in [[RFC6464]]. This
+          is the stats-equivalent of <code>RTCRtpSynchronizationSource</code>.<a class=fixme href="https://w3c.github.io/webrtc-extensions/#dom-rtcrtpsynchronizationsource-voiceactivityflag"><code>voiceActivityFlag</code></a>
+          in [[WEBRTC].
+        </p>
+      </dd>
+      <dt>
+        <dfn>averageRtcpInterval</dfn> of type <span class=
+        "idlMemberType">double</span>
+      </dt>
+      <dd>
+        <p>
+          The average RTCP interval between two consecutive compound RTCP packets. This is
+          calculated by the sending endpoint when sending compound RTCP reports. Compound
+          packets must contain at least a RTCP <code>RR</code> or <code>SR</code> block and an SDES packet with the
+          CNAME item.
+        </p>
+      </dd>
+      <dt>
+        <dfn>packetsFailedDecryption</dfn> of type <span class=
+        "idlMemberType">unsigned long long</span>
+      </dt>
+      <dd>
+        <p>
+          The cumulative number of RTP packets that failed to be decrypted according to the
+          procedures in [[!RFC3711]]. These packets are not counted by
+          <code>packetsDiscarded</code>.
+        </p>
+      </dd>
+      <dt>
+        <dfn>packetsDuplicated</dfn> of type <span class=
+        "idlMemberType">unsigned long long</span>
+      </dt>
+      <dd>
+        The cumulative number of packets discarded because they are duplicated. Duplicate
+        packets are not counted in <code>RTCReceivedRtpStreamStats/packetsDiscarded</code>.<br>
+        Duplicated packets have the same RTP sequence number and content as a previously
+        received packet. If multiple duplicates of a packet are received, all of them are
+        counted.<br>
+        An improved estimate of lost packets can be calculated by adding
+        {{packetsDuplicated}} to <code>RTCReceivedRtpStreamStats/packetsLost</code>; this will always result in a positive
+        number, but not the same number as RFC 3550 would calculate.
+      </dd>
+      <dt>
+        <dfn>perDscpPacketsReceived</dfn> of type <span class=
+        "idlMemberType">record&lt;USVString, unsigned long long&gt;</span>
+      </dt>
+      <dd>
+        <p>
+          Total number of packets received for this <code>SSRC</code>, per Differentiated Services code
+          point (DSCP) [[RFC2474]]. DSCPs are identified as decimal integers in string
+          form. Note that due to network remapping and bleaching, these numbers are not
+          expected to match the numbers seen on sending. Not all OSes make this information
+          available.
+        </p>
+      </dd>
+      <dt>
+        <dfn>sliCount</dfn> of type <span class="idlMemberType">unsigned
+        long</span>
+      </dt>
+      <dd>
+        <p>
+          Only exists for video. Count the total number of Slice Loss Indication (SLI)
+          packets sent by this receiver. Calculated as defined in [[!RFC4585]] section
+          6.3.2.
+        </p>
+      </dd>
+      <dt>
+        <dfn>totalSamplesDecoded</dfn> of type <span class=
+        "idlMemberType">unsigned long long</span>
+      </dt>
+      <dd>
+        <p>
+          Only exists for audio. The total number of samples that have been decoded on this
+          RTP stream. 
+        </p>
+      </dd>
+      <dt>
+        <dfn>samplesDecodedWithSilk</dfn> of type <span class=
+        "idlMemberType">unsigned long long</span>
+      </dt>
+      <dd>
+        <p>
+          Only exists for audio and when the audio codec is Opus. The total number of
+          samples decoded by the SILK portion of the Opus codec.
+        </p>
+      </dd>
+      <dt>
+        <dfn>samplesDecodedWithCelt</dfn> of type <span class=
+        "idlMemberType">unsigned long long</span>
+      </dt>
+      <dd>
+        <p>
+          Only exists for audio and when the audio codec is Opus. The total number of
+          samples decoded by the CELT portion of the Opus codec.
         </p>
       </dd>
     </dl>
