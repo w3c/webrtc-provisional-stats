@@ -674,6 +674,7 @@
     </h3>
     <pre class="idl">partial dictionary RTCRemoteInboundRtpStreamStats {
       unsigned long long reportsReceived;
+      unsigned long long packetsDiscarded;
 };</pre>
     <dl data-link-for="RTCRemoteInboundRtpStreamStats" data-dfn-for="RTCRemoteInboundRtpStreamStats" class=
     "dictionary-members">
@@ -684,6 +685,18 @@
       <dd>
         <p>
           Represents the total number of <code>RTCP RR</code> blocks received for this <code>SSRC</code>.
+        </p>
+      </dd>
+      <dt>
+        <dfn>packetsDiscarded</dfn> of type <span class=
+        "idlMemberType">unsigned long long</span>
+      </dt>
+      <dd>
+        <p>
+          The cumulative number of RTP packets discarded by the jitter buffer due to late
+          or early-arrival, i.e., these packets are not played out. RTP packets discarded
+          due to packet duplication are not reported in this metric [[XRBLOCK-STATS]].
+          Calculated as defined in [[!RFC7002]] section 3.2 and Appendix A.a.
         </p>
       </dd>
     </dl>
