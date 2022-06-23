@@ -171,6 +171,103 @@
       </dd>
     </dl>
   </section>
+  <section id="RTCRtpTransceiverStats-dict*">
+    <h3>
+      <dfn>RTCRtpTransceiverStats</dfn> dictionary non-standardized members
+    </h3>
+    <pre class="idl">dictionary RTCRtpTransceiverStats : RTCStats {
+      required DOMString senderId;
+      required DOMString receiverId;
+      DOMString          mid;
+};</pre>
+    <dl data-link-for="RTCRtpTransceiverStats" data-dfn-for="RTCRtpTransceiverStats" class=
+    "dictionary-members">
+      <dt>
+        <dfn>senderId</dfn> of type <span class="idlMemberType">DOMString</span>
+      </dt>
+      <dd>
+        <p>
+          The identifier for the {{RTCRtpSenderStats}} stats object representing
+          the <code>RTCRtpSender</code> associated with the
+          <code>RTCRtpTransceiver</code> that this stats object represents.
+        </p>
+      </dd>
+      <dt>
+        <dfn>receiverId</dfn> of type <span class=
+        "idlMemberType">DOMString</span>
+      </dt>
+      <dd>
+        <p>
+          The identifier for the {{RTCRtpReceiverStats}} stats object
+          representing the <code>RTCRtpReceiver</code> associated with the
+        <code>RTCRtpTransceiver</code> that this stats object represents.
+        </p>
+      </dd>
+      <dt>
+        <dfn>mid</dfn> of type <span class="idlMemberType">DOMString</span>
+      </dt>
+      <dd>
+        <p>
+          If the <code>RTCRtpTransceiver</code> that this stats object
+          represents has a <code>RTCRtpTransceiver.mid</code> value that is not
+          null, this is that value, otherwise this member is not present.
+        </p>
+      </dd>
+    </dl>
+  </section>
+  <section id="RTCRtpSenderStats-dict*">
+    <h3>
+      <dfn>RTCRtpSenderStats</dfn> dictionary non-standardized members
+    </h3>
+    <pre class="idl">dictionary RTCRtpSenderStats : RTCStats {
+      DOMString mediaSourceId;
+};</pre>
+    <dl data-link-for="RTCRtpSenderStats" data-dfn-for="RTCRtpSenderStats" class=
+    "dictionary-members">
+      <dt>
+        <dfn>mediaSourceId</dfn> of type <span class=
+        "idlMemberType">DOMString</span>
+      </dt>
+      <dd>
+        <p>
+          The identifier of the stats object representing the track currently
+          attached to this sender, an {{RTCMediaSourceStats}}.
+        </p>
+      </dd>
+    </dl>
+  </section>
+  <section id="RTCRtpReceiverStats-dict*">
+    <h3>
+      <dfn>RTCRtpReceiverStats</dfn> dictionary non-standardized members
+    </h3>
+    <pre class="idl">dictionary RTCRtpReceiverStats : RTCStats {
+      required DOMString trackIdentifier;
+      required DOMString kind;
+};</pre>
+    <dl data-link-for="RTCRtpReceiverStats" data-dfn-for="RTCRtpReceiverStats" class=
+    "dictionary-members">
+      <dt>
+        <dfn>trackIdentifier</dfn> of type <span class=
+        "idlMemberType">DOMString</span>
+      </dt>
+      <dd>
+        <p>
+          The <code>id</code> property of the {{RTCMediaStreamTrack}} attached
+          to the {{RTCRtpReceiver}} that this stats object represents.
+        </p>
+      </dd>
+      <dt>
+        <dfn>kind</dfn> of type <span class="idlMemberType">DOMString</span>
+      </dt>
+      <dd>
+        <p>
+          Either <code>"audio"</code> or <code>"video"</code>. The
+          <code>kind</code> property of the {{RTCMediaStreamTrack}} attached to
+          the {{RTCRtpReceiver}} that this stats object represents.
+        </p>
+      </dd>
+    </dl>
+  </section>
   <section id="RTCOutboundRtpStreamStats-dict*">
     <h3>
       <dfn>RTCOutboundRtpStreamStats</dfn> dictionary non-standardized members
