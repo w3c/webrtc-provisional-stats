@@ -794,10 +794,22 @@
       <dfn>RTCAudioReceiverStats</dfn> dictionary non-standardized members
     </h3>
     <pre class="idl">partial dictionary RTCAudioReceiverStats {
+      unsigned long long delayedPacketOutageSamples;
       unsigned long long jitterBufferFlushes;
 };</pre>
     <dl data-link-for="RTCAudioReceiverStats" data-dfn-for="RTCAudioReceiverStats" class=
     "dictionary-members">
+      <dt>
+        <dfn><code>delayedPacketOutageSamples</code></dfn> of type
+        <span class="idlMemberType"><a href="https://heycam.github.io/webidl/#idl-unsigned-long-long">unsigned long long</a></span>
+      </dt>
+      <dd>
+        <p>
+          Experimental stat which is available <a href="https://docs.google.com/document/d/1stYIZhEmDZ7NJF9gjjsM66eLFJUdc-14a3QutrFbIwI/edit#" title="experiment description">under origin trial in Chromium starting from M72 version</a>.
+          Measures the number of audio samples that were concealed due to jitter buffer underrun caused by delayed packets.
+          This gives an indication of how well the jitter buffer's network adaptation is working.
+        </p>
+      </dd>
       <dt>
         <dfn><code>jitterBufferFlushes</code></dfn> of type
         <span class="idlMemberType"><a href="https://heycam.github.io/webidl/#idl-unsigned-long-long">unsigned long long</a></span>
